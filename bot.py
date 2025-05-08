@@ -15,7 +15,7 @@ my_id = 5479326495  # Your Telegram ID
 
 # Ссылки для кнопок
 SUPPORT_LINK = "https://t.me/SpaceSaveSup"
-BOT_CHANNEL_LINK = "https://t.me/SpaseSaves"
+BOT_CHANNEL_LINK = "https://t.me/SpaceSaves"
 
 @dp.message(commands=['start'])
 async def cmd_start(message: types.Message):
@@ -80,5 +80,5 @@ async def get_message(message: types.Message):
 async def main():
     await dp.start_polling(bot)
 
-if name == "main":
+if __name__ == "__main__":
     asyncio.run(main())

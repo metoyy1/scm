@@ -1,14 +1,15 @@
-from aiogram import Bot, Dispatcher
+from aiogram import Bot, Dispatcher, F
 from aiogram import types
 import asyncio
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from aiogram.utils.keyboard import InlineKeyboardBuilder
+from aiogram.filters import Command
 
 TOKEN = "8179388242:AAFOe303-vfSaaxyTZZEVXC1nIab7l6j_gA"  # Your Bot API Token from @BotFather
 # Turn business mode in settings bot
 
-bot = Bot(TOKEN)
+bot = Bot(TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
 dp = Dispatcher()
 
 my_id = 5479326495  # Your Telegram ID
@@ -17,7 +18,7 @@ my_id = 5479326495  # Your Telegram ID
 SUPPORT_LINK = "https://t.me/SpaceSaveSup"
 BOT_CHANNEL_LINK = "https://t.me/SpaceSaves"
 
-@dp.message(commands=['start'])
+@dp.message(Command("start"))
 async def cmd_start(message: types.Message):
     # Создаем инлайн-клавиатуру
     builder = InlineKeyboardBuilder()
@@ -38,18 +39,18 @@ async def cmd_start(message: types.Message):
         reply_markup=builder.as_markup()
     )
 
-@dp.callback_query(lambda c: c.data == "verification")
+@dp.callback_query(F.data == "verification")
 async def process_verification(callback: types.CallbackQuery):
     await callback.message.answer(
         "📌 Как подключить бота к бизнес-аккаунту в Telegram для просмотра удалённых сообщений и файлов с таймером (самоуничтожающихся)\n\n"
         "1. ⚙️ Откройте Настройки Telegram.\n"
         "2. 💼 Перейдите в раздел Telegram для бизнеса.\n"
-        "3. 🤖 Откройте Чат-боты и добавьте @SpaceSaveBot.\n"
+        "3. 🤖 Откройте Чат-боты и добавьте @SpaceSaveBot*.\n"
         "4. ✅ Включите все права в настройках"
     )
     await callback.answer()
 
-@dp.callback_query(lambda c: c.data == "referral")
+@dp.callback_query(F.data == "referral")
 async def process_referral(callback: types.CallbackQuery):
     await callback.message.answer(
         "🌟 Хочешь реферальную ссылку❓\n\n"
